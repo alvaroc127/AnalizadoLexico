@@ -164,6 +164,7 @@ public class AdministradorAutomatas {
                 }else{
                     probleminAuto(lineClear.get(i),autoDigito.getIndexOfline());
                 }
+                //hay que hacer una haga mientras hasta que la linea quede trabajable por el automata
             //se envia automata digito
             //si automata tiene problamas mirar endonde tiene problemas 
             // y acual automa se debe enviar
