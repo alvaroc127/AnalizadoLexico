@@ -52,7 +52,7 @@ public class AutomataDigito extends Automata{
         }
     }
     
-    public void WriteTabSimbo(){
+    private void WriteTabSimbo(){
         tab.writeTabSimbolDig(lexema);
     }
 

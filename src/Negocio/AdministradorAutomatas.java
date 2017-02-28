@@ -153,9 +153,39 @@ public class AdministradorAutomatas {
              }
             }
         }
-        System.out.println(texto.toString());
         return texto;
     }
+   
+    public void ValidaAutomata(ArrayList<String> lineClear){
+        for(int i=0; i< lineClear.size();i++){
+            if(Character.isDigit(lineClear.get(i).charAt(0))){
+                if(autoDigito.algoritAuto(lineClear.get(i))){
+                    autoDigito.WriteObjFile();
+                }else{
+                    probleminAuto(lineClear.get(i),autoDigito.getIndexOfline());
+                }
+            //se envia automata digito
+            //si automata tiene problamas mirar endonde tiene problemas 
+            // y acual automa se debe enviar
+            //validar el estado de aceptacion
+            //enviar el problema con el automata correspondiente
+            }else{
+            if(Character.isLetter(lineClear.get(i).charAt(0))){
+                //se envia a automata identificador
+                }else{
+                    if(lineClear.get(i).charAt(0)!='"'){
+                    //se envia a utoma de simbolos
+                    }
+                }
+            }
+        }
+    }
+    
+    public void probleminAuto(String clearPromlin,int indiceLectu){
+    ///enviar el problema a automata correspondiente
+    
+    }
+    
     
     
 }
