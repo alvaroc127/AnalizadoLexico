@@ -111,7 +111,7 @@ public class ControlArchivos {
         boolean ban=false;
     try{
            while((line=buffer.readLine())!= null && ban==false){
-               if(line.contentEquals(lexm)){
+               if(line.contains(lexm)){
                ban=true;
                }
            }
@@ -130,7 +130,7 @@ public class ControlArchivos {
     
     public void writeFileObject(String line) throws  IOException{
     File ntabFil=new File(System.getProperty("user.home")+nameObjFile);
-    FileWriter fileWri=new FileWriter(ntabFil);
+    FileWriter fileWri=new FileWriter(ntabFil,true);
     BufferedWriter bufFil=new BufferedWriter(fileWri);
     try{
     addreObjFile=System.getProperty("user.home")+nameObjFile;
@@ -154,9 +154,11 @@ public class ControlArchivos {
         boolean ban=false;
     try{
            while((line=buffer.readLine())!= null && ban==false){
-               if(line.contentEquals(lexm)){
+               if(line.contains(lexm)){
                    ban=true;
-                   token=line.substring(line.indexOf("\t"),line.lastIndexOf("\t",line.indexOf("\t")));
+                   int from=line.indexOf("\t")+1;
+                   int end=line.indexOf("\t",from);
+                   token=line.substring(from,end);
                }
            }
        }catch(IOException ex){
@@ -175,10 +177,10 @@ public class ControlArchivos {
     
     public void writeinTableSimbolID(String lexema) throws IOException{
     File ntabFil=new File(addresFile);
-    FileWriter fileWri=new FileWriter(ntabFil);
+    FileWriter fileWri=new FileWriter(ntabFil,true);
     BufferedWriter bufFil=new BufferedWriter(fileWri);
     try{
-    bufFil.write(lexema+"\tid" + "\t0\r\n \n" );
+    bufFil.write(lexema+"\tid" + "\t0\n" );
     }catch(IOException ex){
         ex.printStackTrace();
         }finally{
@@ -188,10 +190,10 @@ public class ControlArchivos {
     
     public void writeinTableSimbolDig(String lexema) throws IOException{
     File ntabFil=new File(addresFile);
-    FileWriter fileWri=new FileWriter(ntabFil);
+    FileWriter fileWri=new FileWriter(ntabFil,true);
     BufferedWriter bufFil=new BufferedWriter(fileWri);
     try{
-    bufFil.write(lexema+"\tnum" + "\t0\r\n \n" );
+    bufFil.write(lexema+"\tnum" + "\t0\n" );
     }catch(IOException ex){
         ex.printStackTrace();
         }finally{

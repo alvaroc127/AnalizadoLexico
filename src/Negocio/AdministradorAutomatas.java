@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -76,59 +77,8 @@ public class AdministradorAutomatas {
         boolean ban=false;
         boolean ban1=false;
     try{
-           while((line=buffer.readLine())!= null && ban==false){ 
-               do{
-                   if(autoID.getInicioCadena()==0){
-                   autoID.algoritAuto(line);
-                   }else{
-                   autoID.setInicioCadena(autoDigito.getIndexOfline());
-                   autoID.algoritAuto(line);
-                   }
-                   if(autoID.getIndexOfline()==autoDigito.getIndexOfline()){
-                   ban1=true;
-                   }else{
-                   autoID.WriteObjFile();
-                   autoID.addSpace();
-                   ban1=false;
-                   }
-               
-                   if(line.charAt(autoID.getIndexOfline())=='\"'){
-                   autoSimbo.setInicioCadena(searchquotes(line,autoID.getIndexOfline()));
-                   co.writeFileObject(extracSequence(line,autoID.getIndexOfline(),searchquotes(line,autoID.getIndexOfline())));
-                   autoSimbo.algoritAuto(line);
-                   }else{
-                       if(line.charAt(autoID.getIndexOfline())==' '){
-                           autoSimbo.setInicioCadena(autoID.getIndexOfline()+1);
-                           autoSimbo.algoritAuto(line);
-                       }
-                   }
-                   if(autoID.getIndexOfline()+1== autoSimbo.getIndexOfline()){
-                   ban1=true;
-                   }else{
-                   ban1=false;
-                   autoSimbo.WriteObjFile();
-                   autoSimbo.addSpace();
-                   }
-                   if(line.charAt(autoSimbo.getIndexOfline())=='\"'){
-                    autoDigito.setInicioCadena(searchquotes(line,autoSimbo.getIndexOfline()));
-                    co.writeFileObject(extracSequence(line,autoSimbo.getIndexOfline(),searchquotes(line,autoSimbo.getIndexOfline())));
-                    autoDigito.algoritAuto(line);
-                   }else{
-                       if(line.charAt(autoSimbo.getIndexOfline())==' '){
-                           autoDigito.setInicioCadena(autoSimbo.getIndexOfline()+1);
-                           autoDigito.algoritAuto(line);
-                       }
-                   }
-                   if(autoDigito.getIndexOfline()+1== autoSimbo.getIndexOfline()){
-                   ban1=true;
-                   }else{
-                   ban1=false;
-                   autoDigito.WriteObjFile();
-                   autoDigito.addSpace();
-                   }      
-               }while(ban1==true);
-                    //si es un simbolo autoletra.WriteOBjetFIle y autsimbolo.WritroBjeFIle
-                
+           while((line=buffer.readLine())!= null){
+                  clearString(line);
            }
        }catch(IOException ex){
            ex.printStackTrace();
@@ -172,7 +122,40 @@ public class AdministradorAutomatas {
     return co;
     }
     
-    
+    public ArrayList<String> clearString(String line){
+        ArrayList<String> texto=new ArrayList<String>();
+        boolean ban=true;
+        boolean ban1=true;
+        int ini=0;
+        for(int i=0;i<line.length()-1&&true==ban;i++){
+            if(line.indexOf("\"", i)==-1 && line.indexOf(" ", i)==-1){
+                texto.add(line.substring(i));
+                ban=false;
+            }else{
+            if(line.charAt(i)==' '||line.charAt(i)=='"'){
+                if(ini!=0){
+              texto.add(line.substring(ini,i));
+                }else{
+                texto.add(line.substring(ini,i));
+                }
+              ini=i+1;
+              if(line.charAt(i)=='"'){
+                  ban1=true;
+                for(int j= i+1;j<line.length()-1&&true==ban1;j++){
+                        if(line.charAt(j)=='"'){
+                        texto.add(line.substring(i, j+1));
+                        ban1=false;
+                        i=j;
+                        }
+                    }
+                ini=i+1;
+                }
+             }
+            }
+        }
+        System.out.println(texto.toString());
+        return texto;
+    }
     
     
 }
