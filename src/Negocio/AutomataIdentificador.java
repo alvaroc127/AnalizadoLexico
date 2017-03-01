@@ -47,7 +47,7 @@ public class AutomataIdentificador extends Automata{
         return estadoAcepta;
     }
     
-    public void WriteTabSimbo(){
+    private void WriteTabSimbo(){
         tab.writeTabSimbolID(lexema);
     }
 
@@ -71,6 +71,30 @@ public class AutomataIdentificador extends Automata{
         }
     }
     
+    @Override
+    public boolean algoritmoDo(String clearline, int index) {
+        estado=0;
+        boolean ban=true;
+        for(int i=inicioCadena; i < clearline.length()-1&&ban==true&&i<index; i++){
+              if(Character.isLetter(clearline.charAt(i))&& estado== 0){
+                  lexema+=clearline.charAt(i);
+                  estado=1;
+                  estadoAcepta=true;
+              }else{
+                  if(Character.isLetterOrDigit(clearline.charAt(i))&& estado==1){
+                  lexema+=clearline.charAt(i);
+                  estado=1;
+                  estadoAcepta=true;
+                  }else{
+              posLectura[0]=i;
+              estadoAcepta=false;
+              ban=false;
+                  }
+              }
+        }
+        return estadoAcepta;
+    }
+    
     public void addSpace(){
     tab.writeFileObj(" ");
     }
@@ -82,6 +106,9 @@ public class AutomataIdentificador extends Automata{
     public void setInicad(int start){
     this.inicioCadena=start;
     }
+
+    
+    
     
     
 }

@@ -111,7 +111,7 @@ public class ControlArchivos {
         boolean ban=false;
     try{
            while((line=buffer.readLine())!= null && ban==false){
-               if(line.contains(lexm)){
+               if(line.substring(0,line.indexOf("\t")).equals(lexm)){
                ban=true;
                }
            }
@@ -154,7 +154,7 @@ public class ControlArchivos {
         boolean ban=false;
     try{
            while((line=buffer.readLine())!= null && ban==false){
-               if(line.contains(lexm)){
+               if(line.substring(0,line.indexOf("\t")).equals(lexm)){
                    ban=true;
                    int from=line.indexOf("\t")+1;
                    int end=line.indexOf("\t",from);
@@ -199,6 +199,28 @@ public class ControlArchivos {
         }finally{
         bufFil.close();
      }
+    }
+    
+    public String getTextFileObj() throws  IOException{
+    String stringFil;
+    String finish="";
+    File fil=new File(addreObjFile);
+    FileReader filr=new FileReader(fil);
+    BufferedReader buffer=new BufferedReader(filr);
+       try{
+           while((stringFil=buffer.readLine())!= null){
+               finish+=stringFil+"\n";
+           }
+       }catch(IOException ex){
+           ex.printStackTrace();
+       }finally{
+           try{
+           filr.close();
+           }catch(IOException ioex){
+           ioex.printStackTrace();
+           }
+       }
+       return finish;
     }
     
     

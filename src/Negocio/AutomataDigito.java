@@ -42,6 +42,26 @@ public class AutomataDigito extends Automata{
         return estadoAcepta;
     }
 
+    
+    @Override
+    public boolean algoritmoDo(String clearline, int index) {
+        boolean ban=true;
+        for(int i=inicioCadena; i <clearline.length()-1&&i<index&&ban==true; i++){
+              if(Character.isLetter(clearline.charAt(i))){
+                  lexema+=clearline.charAt(i);
+                  estado=1;
+                  estadoAcepta=true;
+              }else{
+              posLectura[0]=i;
+              estadoAcepta=false;
+              ban=false;
+              }
+        }
+        return estadoAcepta;
+    }
+    
+    
+    
     @Override
     public void WriteObjFile() {
         if(isKeyWord()){
@@ -75,6 +95,8 @@ public class AutomataDigito extends Automata{
      public void addSpace(){
     tab.writeFileObj(" ");
     }
+
+    
     
     
     

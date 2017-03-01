@@ -78,7 +78,12 @@ public class AdministradorAutomatas {
         boolean ban1=false;
     try{
            while((line=buffer.readLine())!= null){
-                  clearString(line);
+                ValidaAutomata(clearString(line));
+                try{
+                    co.writeFileObject("\n");
+                }catch(IOException ex){
+                ex.printStackTrace();
+                }
            }
        }catch(IOException ex){
            ex.printStackTrace();
@@ -156,37 +161,86 @@ public class AdministradorAutomatas {
         return texto;
     }
    
-    public void ValidaAutomata(ArrayList<String> lineClear){
-        for(int i=0; i< lineClear.size();i++){
-            if(Character.isDigit(lineClear.get(i).charAt(0))){
-                if(autoDigito.algoritAuto(lineClear.get(i))){
-                    autoDigito.WriteObjFile();
-                }else{
-                    probleminAuto(lineClear.get(i),autoDigito.getIndexOfline());
-                }
-                //hay que hacer una haga mientras hasta que la linea quede trabajable por el automata
+     //hay que hacer una haga mientras hasta que la linea quede trabajable por el automata
             //se envia automata digito
             //si automata tiene problamas mirar endonde tiene problemas 
             // y acual automa se debe enviar
             //validar el estado de aceptacion
             //enviar el problema con el automata correspondiente
-            }else{
+    public void ValidaAutomata(ArrayList<String> lineClear){
+        for(int i=0; i < lineClear.size();i++){
+            if(Character.isDigit(lineClear.get(i).charAt(0))){
+                if(autoDigito.algoritAuto(lineClear.get(i))){
+                    autoDigito.WriteObjFile();
+                    autoDigito.setLexema("");
+                    autoDigito.addSpace();
+                }else{
+                    autoDigito.setLexema("");
+                    if(autoDigito.algoritmoDo(lineClear.get(i), autoDigito.getIndexOfline())){
+                        autoDigito.WriteObjFile();
+                        autoDigito.addSpace();
+                        autoDigito.setLexema("");
+                        lineClear.set(i, lineClear.get(i).substring(autoDigito.getIndexOfline()));
+                        i--;
+                    }
+                }
+            }else{ 
             if(Character.isLetter(lineClear.get(i).charAt(0))){
-                //se envia a automata identificador
+                if(autoID.algoritAuto(lineClear.get(i))){
+                    autoID.WriteObjFile();
+                    autoID.addSpace();
+                    autoID.setLexema("");
+                        }else{
+                    autoID.setLexema("");
+                    if(autoID.algoritmoDo(lineClear.get(i), autoID.getIndexOfline())){
+                        autoID.WriteObjFile();
+                        autoID.setLexema("");
+                        //autoID.addSpace();
+                        lineClear.set(i, lineClear.get(i).substring(autoID.getIndexOfline()));
+                        i--;
+                        //descargo parcial
+                        }
+                    }
                 }else{
                     if(lineClear.get(i).charAt(0)!='"'){
-                    //se envia a utoma de simbolos
+                         boolean ban=true;
+                         boolean ban1=true;
+                        do{
+                            System.out.println(lineClear.get(i));
+                           ban=autoSimbo.algoritAuto(lineClear.get(i));
+                            autoSimbo.WriteObjFile();
+                            autoSimbo.setLexema("");
+                            if(ban==true){
+                            ban1=autoSimbo.IsSim(lineClear.get(i),autoSimbo.getIndexOfline());    
+                            lineClear.set(i,lineClear.get(i).substring(autoSimbo.getIndexOfline()));
+                            }
+                        }while(true==ban1&&true==ban);
+                    }else{
+                        if(lineClear.get(i).charAt(0)=='"'){
+                            try{
+                            co.writeFileObject(lineClear.get(i));
+                            }catch(IOException ex){
+                            ex.printStackTrace();
+                            }
+                        }
                     }
                 }
             }
         }
-    }
+      }
     
-    public void probleminAuto(String clearPromlin,int indiceLectu){
-    ///enviar el problema a automata correspondiente
     
+    public String getTextFileObj(){
+        String out="";
+        try{
+     out=co.getTextFileObj();
+        }catch(IOException ex){
+        ex.printStackTrace();
+        }
+        return out;
     }
     
     
     
 }
+    

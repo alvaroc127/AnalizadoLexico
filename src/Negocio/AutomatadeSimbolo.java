@@ -25,17 +25,16 @@ public class AutomatadeSimbolo extends Automata{
     
     public boolean algoritAuto(String linText){
         estado=1;
-        boolean ban=true;
-        for(int i=inicioCadena; i < linText.length()&&ban==true; i++){
-                  if(!Character.isLetterOrDigit(linText.charAt(i))&& estado==1){
-                  lexema+=linText.charAt(i);
-                  estado=1;
-                  estadoAcepta=true;
-                  }else{
-              posLectura[0]=i;
-              estadoAcepta=false;
-              ban=false;
-                  }
+        if(linText.isEmpty()==false){
+            lexema+=linText.charAt(0);
+            if(linText.length()>1){
+            if(!Character.isLetterOrDigit(linText.charAt(1))){
+                estadoAcepta=true;
+                posLectura[0]=1;
+                }
+            }else{
+            estadoAcepta=false;
+            }
         }
         return estadoAcepta;
     }
@@ -49,6 +48,21 @@ public class AutomatadeSimbolo extends Automata{
         }else{
             System.out.println("simbolo desconocido");
         }
+    }
+    
+    
+    @Override
+    public boolean algoritmoDo(String clearline, int index) {
+                estado=1;
+                  if(!Character.isLetterOrDigit(clearline.charAt(index))){
+                  lexema+=clearline.charAt(index);
+                  estado=1;
+                  estadoAcepta=true;
+                  }else{
+              posLectura[0]=index;
+              estadoAcepta=false;
+                 }
+        return estadoAcepta;
     }
     
     
@@ -70,6 +84,14 @@ public class AutomatadeSimbolo extends Automata{
     public int getIndexOfline(){
     return posLectura[0];
     } 
+
+    public boolean IsSim(String cad, int inde){
+        boolean ban=false;
+        if(!Character.isLetterOrDigit(cad.charAt(inde))){
+        ban=true;
+        }
+        return true;
+    }
     
     
     

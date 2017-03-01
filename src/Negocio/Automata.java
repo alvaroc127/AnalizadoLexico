@@ -85,6 +85,6 @@ public abstract class Automata {
     }
     
      public abstract void WriteObjFile();
-    
+    public abstract boolean algoritmoDo(String clearline,int index);
     
 }

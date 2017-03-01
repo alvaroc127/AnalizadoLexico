@@ -49,7 +49,7 @@ public class GuiPrincipal extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         txSourceCod = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txObje = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -81,9 +81,9 @@ public class GuiPrincipal extends javax.swing.JFrame {
         txSourceCod.setRows(5);
         jScrollPane2.setViewportView(txSourceCod);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane3.setViewportView(jTextArea2);
+        txObje.setColumns(20);
+        txObje.setRows(5);
+        jScrollPane3.setViewportView(txObje);
 
         jLabel1.setText("Archivo Objeto");
 
@@ -182,6 +182,10 @@ public class GuiPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(fileCho.getSelectedFile()!=null){
             guiCon.StarALEX();
+            txObje.append(guiCon.getTextObjFil());
+            jtSimbol.removeAll();
+            guiCon.loadTable();
+            jtSimbol.setModel(guiCon.getTab());
         }
     }//GEN-LAST:event_btnAnalizaArchivoActionPerformed
 
@@ -199,8 +203,8 @@ public class GuiPrincipal extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTable jtSimbol;
+    private javax.swing.JTextArea txObje;
     private javax.swing.JTextArea txSourceCod;
     // End of variables declaration//GEN-END:variables
 }

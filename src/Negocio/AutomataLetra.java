@@ -63,5 +63,10 @@ public class AutomataLetra extends Automata{
     public int getIndexOfline(){
     return posLectura[0];
     }
+
+    @Override
+    public boolean algoritmoDo(String clearline, int index) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
 }

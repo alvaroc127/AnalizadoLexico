@@ -70,4 +70,9 @@ public class ControladorGuiPrincipal {
     return tb;
     }
     
+    public String getTextObjFil(){
+    return AdminAuto.getTextFileObj();
+    }
+    
+    
 }
