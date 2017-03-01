@@ -75,4 +75,8 @@ public class ControladorGuiPrincipal {
     }
     
     
+    public String getPatchObjetFile(){
+    return AdminAuto.getAdressObjFile();
+    }
+    
 }

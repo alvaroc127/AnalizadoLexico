@@ -246,6 +246,10 @@ public class AdministradorAutomatas {
     }
     
     
+    public String getAdressObjFile(){
+    return ControlArchivos.getAddreObjFile();
+    }
+    
     
 }
     

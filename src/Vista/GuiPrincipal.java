@@ -12,6 +12,7 @@ import Negocio.AutomataDigito;
 import Negocio.AutomataIdentificador;
 import Negocio.AutomataLetra;
 import Negocio.AutomatadeSimbolo;
+import javax.swing.JOptionPane;
 /**
  *
  * @author felipe
@@ -186,6 +187,7 @@ public class GuiPrincipal extends javax.swing.JFrame {
             jtSimbol.removeAll();
             guiCon.loadTable();
             jtSimbol.setModel(guiCon.getTab());
+            JOptionPane.showMessageDialog(this,"archivo de salida en la siguiente direccion:"+guiCon.getPatchObjetFile());
         }
     }//GEN-LAST:event_btnAnalizaArchivoActionPerformed
 
