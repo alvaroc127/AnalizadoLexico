@@ -31,9 +31,13 @@ public class AutomatadeSimbolo extends Automata{
             if(!Character.isLetterOrDigit(linText.charAt(1))){
                 estadoAcepta=true;
                 posLectura[0]=1;
-                }
+                }else{
+            estadoAcepta=false;
+            posLectura[0]=1;
+            }
             }else{
             estadoAcepta=false;
+            posLectura[0]=1;
             }
         }
         return estadoAcepta;

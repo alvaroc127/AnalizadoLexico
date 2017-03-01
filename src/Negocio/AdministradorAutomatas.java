@@ -206,13 +206,18 @@ public class AdministradorAutomatas {
                          boolean ban=true;
                          boolean ban1=true;
                         do{
-                            System.out.println(lineClear.get(i));
+                            //System.out.println(lineClear.get(i));////¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿
                            ban=autoSimbo.algoritAuto(lineClear.get(i));
                             autoSimbo.WriteObjFile();
                             autoSimbo.setLexema("");
                             if(ban==true){
-                            ban1=autoSimbo.IsSim(lineClear.get(i),autoSimbo.getIndexOfline());    
+                            ban1=autoSimbo.IsSim(lineClear.get(i),autoSimbo.getIndexOfline());
                             lineClear.set(i,lineClear.get(i).substring(autoSimbo.getIndexOfline()));
+                            }else{
+                            if(lineClear.get(i).length()>1){
+                                lineClear.set(i,lineClear.get(i).substring(autoSimbo.getIndexOfline()));
+                                i--;
+                                }
                             }
                         }while(true==ban1&&true==ban);
                     }else{
