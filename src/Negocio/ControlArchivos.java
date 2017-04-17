@@ -22,9 +22,12 @@ public class ControlArchivos {
     
     private static String nameFile="/tablaSimbolos.txt";
     private static String nameObjFile="/ObjectFile.txt";
+    private static String nameTabSin="/TablaProyecto.txt";
     private static String addresFile="";
     private static String adFileSourc="";
     private static String addreObjFile="";
+    private static String addreTabSin="";
+    
     String tabINI="programa\tmain" + "\t1\n" +
                   "int\tint" + "\t1\n" +
                   "float\tfloat" + "\t1\n" +
@@ -72,6 +75,37 @@ public class ControlArchivos {
     public ControlArchivos() {
         
     }
+    
+    public ArrayList<String> createArrayofLine(String line){
+        String aux="";
+        ArrayList<String> array=new ArrayList<String>();
+        for(int i=0;i< line.length();i++){
+            if(Character.isLetter(line.charAt(i))){
+                aux+=line.charAt(i);
+            }else{
+               if(line.charAt(i)==' '){
+               array.add(aux);
+               aux="";
+               }else{
+               array.add(aux);
+               aux="";
+               aux+=line.charAt(i);
+               if(i+1<line.length()){
+                if(Character.isLetter(line.charAt(i+1))||line.charAt(i+1)==' '){
+                   array.add(aux);
+                   aux="";
+                }
+               }
+               if(i+1==line.length()){
+                   array.add(aux);
+                }
+               }
+            }
+        }
+        array.add("$");
+        return array;
+    }
+    
     
     
     
@@ -273,6 +307,73 @@ public class ControlArchivos {
     return tokens;
     }
     
+    
+    public ArrayList<String> readColunTabSint(File fil){
+        ArrayList<String> columas=new ArrayList<String>();
+        columas.add(" ");
+        addreTabSin=fil.getAbsolutePath();
+        String lin="";
+        int indiI=0;
+        int indiFi=0;
+        try{
+        FileReader filRe=new FileReader(fil);
+        BufferedReader buf=new BufferedReader(filRe);
+        lin=buf.readLine();
+            while(indiFi < lin.length()){
+                if(indiFi==0){
+                 indiI=lin.indexOf(" ");
+                 columas.add(lin.substring(0,indiI));
+                    indiFi=lin.indexOf(" ", indiI+1);
+                }else{
+                indiFi=lin.indexOf(" ", indiI+1);
+                if(indiFi==-1)
+                    indiFi=lin.length();
+                columas.add(lin.substring(indiI+1, indiFi));
+                indiI=indiFi;
+                }
+            }
+            
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+        return columas;
+    }
+    
+    
+    
+    public int getIndc_inSpaces(String line){
+    int cont=0;
+    boolean ban=true;
+    for(int i=0; i< line.length()&&true==ban;i++){
+        if(line.charAt(i)==' '){
+            cont++;
+            if(line.charAt(i+1)=='"'){
+            ban=false;
+            }
+        }
+    }
+    return cont;
+    }
+    
+    
+    public ArrayList<String> readFilTabSintac(File file){
+        ArrayList<String> simbol=new ArrayList();
+        String lin="";
+        int indi=0;
+        try{
+        FileReader filRe=new FileReader(file);
+        BufferedReader buf=new BufferedReader(filRe);
+        lin=buf.readLine();
+        while((lin=buf.readLine())!=null){
+            indi=lin.indexOf(" ");
+            simbol.add(lin.substring(0,indi));
+            }    
+        }catch(IOException ex){
+            ex.printStackTrace();
+        }
+        return simbol;
+    }
+    
     public static String getAddresFile() {
         return addresFile;
     }
@@ -290,6 +391,9 @@ public class ControlArchivos {
     }
     
     
+    public static String getAddreTablaSin(){
+    return addreTabSin;
+    }
     
     
 }

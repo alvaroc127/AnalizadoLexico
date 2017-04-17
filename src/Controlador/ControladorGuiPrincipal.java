@@ -6,9 +6,12 @@
 package Controlador;
 
 import Negocio.AdministradorAutomatas;
+import Negocio.AnalizadosSintactico;
 import Negocio.TablaSimbolosVisual;
+import Negocio.TablaSintacticoVisual;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,6 +21,9 @@ public class ControladorGuiPrincipal {
     private AdministradorAutomatas AdminAuto;
     private File fil;
     private TablaSimbolosVisual tb;
+    private AnalizadosSintactico analizadoSin;
+    private  TablaSintacticoVisual tsv;
+    
     
     
     public  ControladorGuiPrincipal(){
@@ -34,6 +40,8 @@ public class ControladorGuiPrincipal {
     public ControladorGuiPrincipal(AdministradorAutomatas AdminAuto){
     this.AdminAuto=AdminAuto;
     tb=new TablaSimbolosVisual();
+    tsv=new TablaSintacticoVisual();
+    analizadoSin=new AnalizadosSintactico();
     }
     
     public void loadFile(File fil){
@@ -78,5 +86,25 @@ public class ControladorGuiPrincipal {
     public String getPatchObjetFile(){
     return AdminAuto.getAdressObjFile();
     }
+    
+    public void startASINT(){
+    analizadoSin.loadTable(fil);
+    analizadoSin.anlysiSin();
+    }
+    
+    public ArrayList getEstados(){
+    return analizadoSin.getEstados();
+    }
+    
+    public  void loadSinTab(ArrayList ele){
+        tsv.setArrayList(ele);
+    }
+    
+    public  TablaSintacticoVisual  getTableASINT(){
+    return tsv;
+    }
+    
+    
+   
     
 }
